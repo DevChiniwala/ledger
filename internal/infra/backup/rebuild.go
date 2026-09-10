@@ -468,8 +468,14 @@ func rebuildDelta(
 				}
 			}
 
-		// Log types with no persistent state to rebuild:
 		case *commonpb.LogPayload_RemovedEventsSink:
+			if err := sinkConfig.Delete(batch, domain.SinkConfigKey{Name: p.RemovedEventsSink.GetName()}.Bytes()); err != nil {
+				_ = batch.Cancel()
+
+				return fmt.Errorf("removing events sink at log %d: %w", seq, err)
+			}
+
+		// Log types with no persistent state to rebuild:
 		case *commonpb.LogPayload_DeletedPreparedQuery:
 		case *commonpb.LogPayload_DeleteQueryCheckpointSchedule:
 			// The checkpoint is the fold seed: a deletion in the exported delta
