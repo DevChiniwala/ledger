@@ -210,12 +210,13 @@ func runWorker(
 		// 1-in-5: a read this iteration, split across the whole-ledger read
 		// (chart + ledger metadata), a single-account read, a transaction read
 		// (id + postings + reverted + metadata), a metadata-schema read (declared
-		// field types), and the two list queries (filtered, paginated, ordered
-		// windows over accounts and transactions). Reads validate against the
-		// in-flight bulk set, exercising cross-node freshness without needing
-		// quiescence.
+		// field types), the list queries (filtered, paginated, ordered windows
+		// over accounts, transactions and logs), and the prepared-query surface
+		// (the registry listing, and execution of a stored definition with its
+		// parameters bound). Reads validate against the in-flight bulk set,
+		// exercising cross-node freshness without needing quiescence.
 		if random.RandomChoice([]uint8{0, 1, 2, 3, 4}) == 0 {
-			switch random.RandomChoice([]uint8{0, 1, 2, 3, 4, 5, 6, 7, 8}) {
+			switch random.RandomChoice([]uint8{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}) {
 			case 0:
 				runLedgerRead(ctx, client, c)
 			case 1:
@@ -230,7 +231,11 @@ func runWorker(
 				runReplay(ctx, client, c)
 			case 6:
 				runLogQuery(ctx, client, c)
+			case 7:
+				runListPreparedQueries(ctx, client, c)
 			case 8:
+				runExecutePreparedQuery(ctx, client, c)
+			case 9:
 				node := random.RandomChoice(checkpointNodes)
 				runCheckpointRead(ctx, node.Bucket, node.Cluster, c)
 			default:
