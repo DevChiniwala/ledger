@@ -1123,8 +1123,8 @@ const file_audit_view_proto_rawDesc = "" +
 	"\x05value\x18\x02 \x01(\v2\x13.common.AccountTypeR\x05value:\x028\x01\"\xdf\x01\n" +
 	"\fAuditFailure\x12+\n" +
 	"\x06reason\x18\x01 \x01(\x0e2\x13.common.ErrorReasonR\x06reason\x12\x1e\n" +
-	"\amessage\x18\x02 \x01(\tB\x04\xe8\xbc\x18\x01R\amessage\x12F\n" +
-	"\acontext\x18\x03 \x03(\v2&.publicaudit.AuditFailure.ContextEntryB\x04\xe8\xbc\x18\x01R\acontext\x1a:\n" +
+	"\amessage\x18\x02 \x01(\tB\x04\xf0\xbc\x18\x01R\amessage\x12F\n" +
+	"\acontext\x18\x03 \x03(\v2&.publicaudit.AuditFailure.ContextEntryB\x04\xf0\xbc\x18\x01R\acontext\x1a:\n" +
 	"\fContextEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B>Z<github.com/formancehq/ledger/v3/internal/proto/publicauditpbb\x06proto3"
